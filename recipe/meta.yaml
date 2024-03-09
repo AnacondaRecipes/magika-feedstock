@@ -1,5 +1,5 @@
 {% set name = "magika" %}
-{% set version = "0.5.0" %}
+{% set version = "0.5.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/magika-{{ version }}.tar.gz
-  sha256: afa0bb883086fe8dc912fc1e4066f8ba9afe2ee1ef98db64c2d76e6467a10ac7
+  sha256: 43dc1153a1637327225a626a1550c0a395a1d45ea33ec1f5d46b9b080238bee0
 
 build:
   entry_points:
