@@ -11,7 +11,8 @@ source:
 
 build:
   entry_points:
-    - magika = magika.cli.magika:main
+    - magika-python-client = magika.cli.magika_client:main
+    - magika = magika.cli.magika_rust_client_not_found_warning:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
@@ -33,6 +34,7 @@ test:
     - magika
   commands:
     - pip check
+    - magika-python-client --help
     - magika --help
   requires:
     - pip
