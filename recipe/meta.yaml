@@ -1,43 +1,45 @@
 {% set name = "magika" %}
-{% set version = "0.5.1" %}
+{% set version = "0.6.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/magika-{{ version }}.tar.gz
-  sha256: 43dc1153a1637327225a626a1550c0a395a1d45ea33ec1f5d46b9b080238bee0
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/magika-{{ version }}.tar.gz
+  sha256: e3dd22c73936630b1cd79d0f412d6d9a53dc99ba5e3709b1ac53f56bc998e635
 
 build:
   entry_points:
-    - magika = magika.cli.magika:main
+    - magika-python-client = magika.cli.magika_client:main
+    - magika = magika.cli.magika_rust_client_not_found_warning:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python >=3.8,<3.12
-    - poetry-core
+    - python {{ python_min }}
+    - hatchling
     - pip
   run:
-    - python >=3.8.0,<4.0.0,<3.12
-    - click >=8.1.3,<9.0.0
-    - tqdm >=4.64.1,<5.0.0
-    - onnxruntime >=1.15.1,<2.0.0
-    - numpy >=1.24.4,<2.0.0
-    - tabulate >=0.9.0,<0.10.0
-    - python-dotenv >=1.0.1,<2.0.0
+    - python >={{ python_min }}
+    - click >=8.1.7
+    - onnxruntime >=1.17.0
+    - numpy >=1.24
+    - python-dotenv >=1.0.1
 
 test:
   imports:
     - magika
   commands:
     - pip check
-    - magika --help
+    - magika-python-client --help
+    # Don't run this as it produces an intended error message
+    # - magika --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/google/magika
