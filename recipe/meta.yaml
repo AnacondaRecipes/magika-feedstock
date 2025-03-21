@@ -35,7 +35,8 @@ test:
   commands:
     - pip check
     - magika-python-client --help
-    - magika --help
+    # Don't run this as it produces an intended error message
+    # - magika --help
   requires:
     - pip
     - python {{ python_min }}
