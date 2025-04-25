@@ -8,25 +8,30 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/magika-{{ version }}.tar.gz
   sha256: e3dd22c73936630b1cd79d0f412d6d9a53dc99ba5e3709b1ac53f56bc998e635
+  skipe: true  #[py<38]
 
 build:
   entry_points:
     - magika-python-client = magika.cli.magika_client:main
     - magika = magika.cli.magika_rust_client_not_found_warning:main
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - hatchling
     - pip
   run:
-    - python >={{ python_min }}
+    - python
     - click >=8.1.7
-    - onnxruntime >=1.17.0
-    - numpy >=1.24
+    # onnxruntime
+    - onnxruntime >=1.17.0           # [py>39]
+    - onnxruntime >=1.17.0,<1.20.0   # [py<=39]
+    # numpy
+    - numpy >=1.24                   # [py<312]
+    - numpy >=1.26                   # [py>=312]
+    - numpy >=2.1.0                  # [py>=313]
     - python-dotenv >=1.0.1
 
 test:
@@ -39,15 +44,20 @@ test:
     # - magika --help
   requires:
     - pip
-    - python {{ python_min }}
 
 about:
   home: https://github.com/google/magika
   dev_url: https://github.com/google/magika/tree/main/python
   doc_url: https://github.com/google/magika
-  summary: A tool to determine the content type of a file with deep-learning
+  summary: A tool to determine the content type of a file with deep-learning.
+  description: |
+    Magika is a tool to determine the content type of a file with deep-learning.
+    It is designed to be used in a pipeline to determine the content type of a file
+    before it is processed by other tools. It is not designed to be used as a standalone
+    tool, but rather as a component in a larger system.
   license: Apache-2.0
   license_file: LICENSE
+  license_family: Apache
 
 extra:
   recipe-maintainers:
