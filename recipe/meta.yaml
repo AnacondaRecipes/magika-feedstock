@@ -8,7 +8,7 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/magika-{{ version }}.tar.gz
   sha256: e3dd22c73936630b1cd79d0f412d6d9a53dc99ba5e3709b1ac53f56bc998e635
-  skipe: true  #[py<38]
+  skip: true  #[py<38]
 
 build:
   entry_points:
