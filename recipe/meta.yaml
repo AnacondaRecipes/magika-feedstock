@@ -15,12 +15,12 @@ build:
     - magika-python-client = magika.cli.magika_client:main
     - magika = magika.cli.magika_rust_client_not_found_warning:main
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0 
+  number: 0
 
 requirements:
   host:
     - python
-    - maturin >=1.7,<2.0
+    - hatchling
     - pip
   run:
     - python
