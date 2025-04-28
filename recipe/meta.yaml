@@ -20,7 +20,7 @@ build:
 requirements:
   host:
     - python
-    - hatchling
+    - maturin >=1.7,<2.0
     - pip
   run:
     - python
