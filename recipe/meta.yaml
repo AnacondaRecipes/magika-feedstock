@@ -18,10 +18,13 @@ build:
   number: 0
 
 requirements:
+  build:
+    - {{ compiler('rust') }}
+    - {{ compiler('c') }}
   host:
     - python
-    - hatchling
     - pip
+    - hatchling
   run:
     - python
     - click >=8.1.7
@@ -56,7 +59,8 @@ about:
     before it is processed by other tools. It is not designed to be used as a standalone
     tool, but rather as a component in a larger system.
   license: Apache-2.0
-  license_file: LICENSE
+  license_file:
+    - LICENSE
   license_family: Apache
 
 extra:
